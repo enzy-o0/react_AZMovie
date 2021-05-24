@@ -1,0 +1,196 @@
+html, body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100%;
+  background-color: #141414 !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 1.5;
+  color: #24292e;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar { display: none; }
+
+.app {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+input.error {
+  border-color: red;
+}
+
+
+.input-feedback {
+  color: red;
+  height: 5px;
+  margin-top: -12px;
+}
+
+/* GridCards.js */
+a .mainImageMore {
+  position: relative; 
+  overflow: hidden;
+}
+
+a .mainImageMore::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.5);
+  z-index: 1;
+  opacity: 0;
+  transition: all .35s;
+}
+
+a:hover .mainImageMore::after{
+  opacity: 1;
+}
+
+a .mainImageMore .moreInfo{
+    position: absolute;
+    bottom: 150%;
+    left: 20%;
+    z-index: 2;
+    transition: all .35s;
+}
+
+a:hover .moreInfo{
+  bottom: 40%;
+}
+
+.detailImage {
+  position: relative; 
+  overflow: hidden;
+}
+
+.detailImage::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.5);
+  z-index: 1;
+  opacity: 0;
+  transition: all .35s;
+}
+
+.detailImage:hover::after{
+  opacity: 1;
+}
+
+.detailImage .detailImageInfo{
+  position: absolute;
+  bottom: 150%;
+  left: 20%;
+  z-index: 2;
+  transition: all .35s;
+}
+
+
+.detailImage:hover .detailImageInfo{
+  bottom: 40%;
+}
+
+
+.details {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #141414;
+}
+
+.image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 70%;
+}
+
+.mainImage {
+  height: 40rem;  
+  width: 100%;
+}
+
+.mainImageDes {
+  overflow: hidden;
+  position: absolute; 
+  width: 40%;
+  bottom: 2rem; 
+  margin: 0 2rem;
+}
+
+.mainImageDes p {
+  line-height: 1.8;
+  color: white; 
+  font-size: 1.2rem; 
+  padding: 0.2rem; 
+}
+
+@media screen and (max-width: 767px) {
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: #141414;
+    position:relative;
+  }
+
+  .image {
+    width: 100% !important;
+    position:relative;
+    height: 30% !important;
+    background-size: cover;
+  }
+
+  .info {
+    width: 100% !important;
+    position:relative;
+    height: 80% !important;
+  }
+  
+  .mainImage {
+    height: 30rem;
+  }
+
+  .mainImageDes {
+    width: 80%;
+  }
+
+  .mainImageDes p {
+    overflow: hidden;
+    display: -webkit-box; 
+    -webkit-line-clamp: 5; 
+    -webkit-box-orient: vertical;
+  }
+  
+
+}
