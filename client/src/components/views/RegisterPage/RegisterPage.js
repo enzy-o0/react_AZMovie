@@ -95,7 +95,7 @@ function RegisterPage(props) {
           handleSubmit,
         } = props;
         return (
-          <div className="app">
+          <div className="app" style={{ backgroundColor: '#fff'}}>
             <h2>회원 가입</h2>
             <Form style={{ minWidth: '375px' }} {...formItemLayout} onSubmit={handleSubmit} >
 

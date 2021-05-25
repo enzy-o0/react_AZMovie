@@ -78,7 +78,7 @@ function LoginPage(props) {
           handleSubmit,
         } = props;
         return (
-          <div className="app">
+          <div className="app" style={{ backgroundColor: '#fff'}}>
 
             <Title level={2}>로그인</Title>
             <form onSubmit={handleSubmit} style={{ width: '350px' }}>
