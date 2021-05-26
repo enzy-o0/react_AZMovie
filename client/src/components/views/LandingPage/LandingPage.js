@@ -36,8 +36,8 @@ function LandingPage() {
     }
 
     const loadMoreItems = () => {
-        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1}`;
-        fetchMovies(endpoint);
+        const endpointMore = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1}`;
+        fetchMovies(endpointMore);
     }
 
 
@@ -55,7 +55,7 @@ function LandingPage() {
         if (scrollTop + clientHeight === scrollHeight) {
             loadMoreItems()
         }
-    }, [Movies, CurrentPage]);
+    }, [Movies, CurrentPage])
 
     useEffect(() => {
         window.addEventListener('scroll', _infiniteScroll, true)
