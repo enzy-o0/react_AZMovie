@@ -26,7 +26,7 @@ function NavBar() {
         <div className="menu_left">
           <LeftMenu mode="horizontal" />
         </div>
-        <div className="menu_rigth">
+        <div className="menu_right">
           <RightMenu mode="horizontal" />
         </div>
         <Button
@@ -40,12 +40,12 @@ function NavBar() {
           title="AZMovie Menu"
           placement="right"
           className="menu_drawer"
-          closable={false}
+          closable={true}
           onClose={onClose}
           visible={visible}
         >
-          <LeftMenu mode="inline" />
-          <RightMenu mode="inline" />
+          <LeftMenu mode="inline" onClose={onClose}/>
+          <RightMenu mode="inline" onClose={onClose}/>
         </Drawer>
       </div>
     </nav>

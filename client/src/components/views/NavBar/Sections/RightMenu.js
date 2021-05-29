@@ -15,6 +15,7 @@ function RightMenu(props) {
     if (resultLogout.payload.success) {
         window.location.replace("/"); // 로그아웃시 새로고침. 히스토리 기록되지 않음.
         localStorage.removeItem('userId');
+        props.onClose();
     } else {
         alert('로그아웃을 실패하였습니다.')
     }
@@ -24,10 +25,10 @@ function RightMenu(props) {
   if (user.userData && !user.userData.isAuth) {
     return (
       <Menu mode={props.mode}>
-        <Menu.Item key="mail">
+        <Menu.Item key="mail"  onClick={props.onClose}>
           <Link to="/login">로그인</Link>
         </Menu.Item>
-        <Menu.Item key="app">
+        <Menu.Item key="app"  onClick={props.onClose}>
           <Link to="/register">회원가입</Link>
         </Menu.Item>
       </Menu>
@@ -36,7 +37,7 @@ function RightMenu(props) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="logout">
-          <Link onClick={logoutHandler}>로그아웃</Link>
+          <Link onClick={logoutHandler} >로그아웃</Link>
         </Menu.Item>
       </Menu>
     )
