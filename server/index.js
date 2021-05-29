@@ -20,7 +20,7 @@ const mongoose = require("mongoose");
   try {
     await mongoose.connect(config.mongoURI, {
         useNewUrlParser: true, useUnifiedTopology: true,
-        useCreateIndex: true, useFindAndModify: false
+        useCreateIndex: true, useFindAndModify: false, poolSize: 100
     });
     console.log('MongoDB Connected...');
   } catch(err) {

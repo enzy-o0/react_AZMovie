@@ -8,8 +8,6 @@ function RightMenu(props) {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch();
 
-  console.log('navbar');
-
   const logoutHandler = async() => {
 
     const resultLogout = await dispatch(logoutUser());
