@@ -1,6 +1,7 @@
 import React from 'react'
 import { Col, Button, Empty } from 'antd'
 import { useMediaQuery } from 'react-responsive'
+import { Link } from 'react-router-dom';
 
 function GridCards(props) {
 
@@ -22,7 +23,7 @@ function GridCards(props) {
     if (props.landingPage) {
         return (
             <Col lg={6} md={8} xs={12}>
-                <a href = {`/movie/${props.movieId}`}>
+                <Link to = {`/movie/${props.movieId}`}>
                     <div className="mainImageMore" >
                     {/* style={{ position: 'relative', overflow: 'hidden'}}> */}
                         <div className="moreInfo" style={{ width: '60%', display: 'flex', flexDirection: 'column'}}>
@@ -34,7 +35,7 @@ function GridCards(props) {
                         { isTablet && setImageHeight('20rem')}
                         { isMobile && setImageHeight('15rem')}
                     </div>
-                </a>
+                </Link>
             </Col>
         )
     } else {

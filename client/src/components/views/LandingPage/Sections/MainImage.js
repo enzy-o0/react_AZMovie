@@ -1,6 +1,6 @@
 import React from 'react';
 import { Carousel } from 'antd';
-import { API_IMAGE_URL } from '../../../Config'
+import { Link } from 'react-router-dom';
 
 function MainImage(props) {
     
@@ -12,9 +12,9 @@ function MainImage(props) {
             <Carousel autoplay effect="fade">
                 { images && images.map((image, index) => (
                     <div key={index} style={{ position: 'relative'}}>
-                        <a href={`/movie/${image.id}`} >
+                        <Link to={`/movie/${image.id}`} >
                             <img className= "mainImage" 
-                                src = {`${API_IMAGE_URL}w1280${image.backdrop_path}`}
+                                src = {`${process.env.REACT_APP_API_IMAGE_URL}w1280${image.backdrop_path}`}
                                 alt="MovieImage"
                                 key = {index}>
                             </img>
@@ -22,7 +22,7 @@ function MainImage(props) {
                                 <h1 style={{ color: 'white'}}> {image.original_title} </h1>
                                 <p> {image.overview} </p> 
                             </div>
-                        </a>   
+                        </Link>   
                     </div>
                 )) 
             }

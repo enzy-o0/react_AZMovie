@@ -15,13 +15,18 @@ const config = require("./config/key");
 //   .catch(err => console.error(err));
 
 const mongoose = require("mongoose");
-const connect = mongoose.connect(config.mongoURI,
-  {
-    useNewUrlParser: true, useUnifiedTopology: true,
-    useCreateIndex: true, useFindAndModify: false
-  })
-  .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+
+(async () => {
+  try {
+    await mongoose.connect(config.mongoURI, {
+        useNewUrlParser: true, useUnifiedTopology: true,
+        useCreateIndex: true, useFindAndModify: false
+    });
+    console.log('MongoDB Connected...');
+  } catch(err) {
+    console.log(err)
+  }
+})()
 
 app.use(cors())
 
@@ -47,7 +52,7 @@ if (process.env.NODE_ENV === "production") {
 
   // Set static folder   
   // All the javascript and css files will be read and served from this folder
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static("client/build"));
 
   // index.html for all page routes    html or routing and naviagtion
   app.get("*", (req, res) => {
@@ -55,7 +60,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const port = process.env.PORT
+const port = process.env.PORT || 5000
 
 app.listen(port, () => {
   console.log(`Server Listening on ${port}`)

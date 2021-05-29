@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
+import { useSelector } from "react-redux";
+import { withRouter } from 'react-router-dom';
 import { Button, Modal } from 'antd'
 
 function Favorite(props) {
+    const user = useSelector(state => state.user)
+
     const userFrom = props.userFrom;
     const movieId = props.movieInfoId;
     const movieTitle = props.movieInfo.title;
@@ -11,7 +15,6 @@ function Favorite(props) {
 
     const [FavoriteNumber, setFavoriteNumber] = useState(0)
     const [Favorited, setFavorited] = useState(false)
-    const [IsLogin, setIsLogin] = useState(false)
 
     let variables = {
         userFrom,
@@ -30,50 +33,42 @@ function Favorite(props) {
             </div>
             ),
             onOk() {
-
+                props.history.push("/login");
             },
         });
     }
 
-    useEffect(() => {
-
-        localStorage.getItem('userId') && setIsLogin(true)
-        
-        Axios.post('/api/favorite/favorited',  variables)
-        .then(response => {
-            if (response.data.success) {
-                setFavorited(response.data.favorited)
-                console.log(response.data)
+    useEffect(() => {        
+        const fetchListData = async() => {
+            const resultList = await Axios.post('/api/favorite/favorited',  variables);
+            if (resultList.data.success) {
+                setFavorited(resultList.data.favorited)
             } else {
                 alert('사용자 정보를 가져오는데 실패 했습니다.')
             }
-        })
+        }
 
+        fetchListData();
     }, [variables])
 
-    const onClickFavorite = () => {
-        if (IsLogin) {
+    const onClickFavorite = async () => {
+        if (user.userData && user.userData.isAuth) {
             if (Favorited) {
-                Axios.post('/api/favorite/favorited/removeFavorite',  variables)
-                .then(response => {
-                    if (response.data.success) {
-                        setFavorited(!Favorited)
-                        setFavoriteNumber(FavoriteNumber - 1)
-                    } else {
-                        alert('Favorite 리스트에서 지우는 걸 실패 했습니다.')
-                    }
-                })
+                const resultRemove = await Axios.post('/api/favorite/favorited/removeFavorite',  variables);
+                if (resultRemove.data.success) {
+                    setFavorited(!Favorited)
+                    setFavoriteNumber(FavoriteNumber - 1)
+                } else {
+                    alert('Favorite 리스트에서 지우는 걸 실패 했습니다.')
+                }
             } else {
-                Axios.post('/api/favorite/favorited/addFavorite',  variables)
-                .then(response => {
-                    if (response.data.success) {
-                        setFavorited(!Favorited)
-                        setFavoriteNumber(FavoriteNumber + 1)
-                        console.log(variables.movieRuntime, response.data)
-                    } else {
-                        alert('Favorite 리스트에서 추가하는 걸 실패 했습니다.')
-                    }
-                })
+                const resultAdd = await Axios.post('/api/favorite/favorited/addFavorite',  variables);
+                if (resultAdd.data.success) {
+                    setFavorited(!Favorited)
+                    setFavoriteNumber(FavoriteNumber + 1)
+                } else {
+                    alert('Favorite 리스트에서 추가하는 걸 실패 했습니다.')
+                }
             }
         } else {
             warning()
@@ -88,4 +83,4 @@ function Favorite(props) {
     )
 }
 
-export default Favorite
+export default withRouter(Favorite)

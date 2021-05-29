@@ -3,29 +3,20 @@ import { withRouter } from "react-router-dom";
 import { loginUser } from "../../../_actions/user_actions";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Form, Icon, Input, Button, Checkbox, Typography } from 'antd';
+import { Form, Icon, Input, Button, Typography } from 'antd';
 import { useDispatch } from "react-redux";
 
 const { Title } = Typography;
 
 function LoginPage(props) {
   const dispatch = useDispatch();
-  const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
-
   const [formErrorMessage, setFormErrorMessage] = useState('')
-  const [rememberMe, setRememberMe] = useState(rememberMeChecked)
-
-  const handleRememberMe = () => {
-    setRememberMe(!rememberMe)
-  };
-
-  const initialEmail = localStorage.getItem("rememberMe") ? localStorage.getItem("rememberMe") : '';
 
   return (
     <Formik
       initialValues={{
-        email: initialEmail,
-        password: '',
+        email: 'test@test.com',
+        password: '000000',
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
@@ -36,35 +27,28 @@ function LoginPage(props) {
           .required('비밀번호를 입력해주세요.'),
       })}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
+
+        setTimeout( async () => {
           let dataToSubmit = {
             email: values.email,
             password: values.password
           };
 
-          dispatch(loginUser(dataToSubmit))
-            .then(response => {
-              console.log(response);
-              if (response.payload.loginSuccess) {
-                window.localStorage.setItem('userId', response.payload.userId);
-                if (rememberMe === true) {
-                  window.localStorage.setItem('rememberMe', values.email);
-                } else {
-                  localStorage.removeItem('rememberMe');
-                }
-                props.history.push("/");
-              } else {
-                setFormErrorMessage('이메일과 비밀번호를 확인해주세요.')
-              }
-            })
-            .catch(err => {
+          try {
+            const result = await dispatch(loginUser(dataToSubmit));
+
+            if (result.payload.success) {
+              window.localStorage.setItem('userId', result.payload.userId);
+              props.history.push("/");
+            } else {
               setFormErrorMessage('이메일과 비밀번호를 확인해주세요.')
-              setTimeout(() => {
-                setFormErrorMessage("")
-              }, 3000);
-            });
-          setSubmitting(false);
-        }, 500);
+            }
+          } catch (err) {
+            setFormErrorMessage('이메일과 비밀번호를 확인해주세요.')
+            setTimeout(() => {
+              setFormErrorMessage("")
+            }, 3000);
+          }}, 500);
       }}
     >
       {props => {
@@ -124,10 +108,10 @@ function LoginPage(props) {
               )}
 
               <Form.Item>
-                <Checkbox id="rememberMe" onChange={handleRememberMe} checked={rememberMe} >이메일 기억하기</Checkbox>
+                {/* <Checkbox id="rememberMe" onChange={handleRememberMe} checked={rememberMe} >이메일 기억하기</Checkbox>
                 <span className="login-form-forgot" style={{ float: 'right' }}>
                     비밀번호를 잊어버렸어요.
-                </span>
+                </span> */}
                 <div>
                   <Button type="default" htmlType="submit" className="login-form-button" style={{ minWidth: '100%' }} disabled={isSubmitting} onSubmit={handleSubmit}>
                     로그인하기

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { API_URL, API_KEY, API_IMAGE_URL } from '../../Config'
+import Axios from 'axios'
 import GridCards from '../commons/GridCards'
 import { Row, Spin } from 'antd'
 import MainImage from './Sections/MainImage'
@@ -14,8 +14,8 @@ function LandingPage() {
     const fetchMovies = async(endpoint) => {
         setShowLoading(true)
 
-        const response = await fetch(endpoint);
-        const fetchMovies = await response.json();
+        const result = await Axios.get(endpoint);
+        const fetchMovies = result.data;
 
         setMovies([...Movies, ...fetchMovies.results]);
 
@@ -36,13 +36,13 @@ function LandingPage() {
     }
 
     const loadMoreItems = () => {
-        const endpointMore = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${CurrentPage + 1}`;
+        const endpointMore = `${process.env.REACT_APP_API_URL}movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${CurrentPage + 1}`;
         fetchMovies(endpointMore);
     }
 
 
     useEffect(() => {
-        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+        const endpoint = `${process.env.REACT_APP_API_URL}movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`;
         fetchMovies(endpoint);
     }, [])
 
@@ -83,7 +83,7 @@ function LandingPage() {
                             <GridCards
                                 landingPage
                                 image={movie.poster_path ?
-                                    `${API_IMAGE_URL}w500${movie.poster_path}` : null}
+                                    `${process.env.REACT_APP_API_IMAGE_URL}w500${movie.poster_path}` : null}
                                 movieId={movie.id}
                                 movieName={movie.original_title}
                             />

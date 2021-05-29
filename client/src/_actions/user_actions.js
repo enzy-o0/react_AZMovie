@@ -1,49 +1,48 @@
-import axios from 'axios';
+import Axios from 'axios';
 import {
     LOGIN_USER,
     REGISTER_USER,
     AUTH_USER,
     LOGOUT_USER,
 } from './types';
-import { USER_SERVER } from '../components/Config.js';
 
-export function registerUser(dataToSubmit){
-    const request = axios.post(`${USER_SERVER}/register`,dataToSubmit)
-        .then(response => response.data);
+export const registerUser = async(dataToSubmit) => {
+    const registerResult = await Axios.post(`${process.env.REACT_APP_USER_SERVER}/register`, dataToSubmit);
+    const registerData = registerResult.data;
     
     return {
         type: REGISTER_USER,
-        payload: request
+        payload: registerData
     }
 }
 
-export function loginUser(dataToSubmit){
-    const request = axios.post(`${USER_SERVER}/login`,dataToSubmit)
-                .then(response => response.data);
+export const loginUser = async(dataToSubmit) => {
+    const loginResult = await Axios.post(`${process.env.REACT_APP_USER_SERVER}/login`, dataToSubmit);
+    const loginData = loginResult.data;
 
     return {
         type: LOGIN_USER,
-        payload: request
+        payload: loginData
     }
 }
 
-export function auth(){
-    const request = axios.get(`${USER_SERVER}/auth`)
-    .then(response => response.data);
+export const auth = async() => {
+    const authResult = await Axios.get(`${process.env.REACT_APP_USER_SERVER}/auth`);
+    const authData = authResult.data;
 
     return {
         type: AUTH_USER,
-        payload: request
+        payload: authData
     }
 }
 
-export function logoutUser(){
-    const request = axios.get(`${USER_SERVER}/logout`)
-    .then(response => response.data);
+export const logoutUser = async() => {
+    const logoutRequest = await Axios.get(`${process.env.REACT_APP_USER_SERVER}/logout`);
+    const logoutData = logoutRequest.data;
 
     return {
         type: LOGOUT_USER,
-        payload: request
+        payload: logoutData
     }
 }
 

@@ -49,8 +49,6 @@ function RegisterPage(props) {
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .required('이름을 입력해주세요.'),
-        // lastName: Yup.string()
-        //   .required('Last Name is required'),
         email: Yup.string()
           .email('이메일이 형식이 아닙니다.')
           .required('이메일을 입력해주세요.'),
@@ -62,25 +60,25 @@ function RegisterPage(props) {
           .required('비밀번호를 확인해주세요.')
       })}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
+        setTimeout( async() => {
 
           let dataToSubmit = {
             email: values.email,
             password: values.password,
             name: values.name,
-            lastname: values.lastname,
             image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`
           };
 
-          dispatch(registerUser(dataToSubmit)).then(response => {
-            if (response.payload.success) {
+            const result = await dispatch(registerUser(dataToSubmit));
+
+            if (result.payload.success) {
               props.history.push("/login");
             } else {
                 alert('중복된 회원이 있습니다.')
             }
-          })
 
-          setSubmitting(false);
+            setSubmitting(false);
+          
         }, 500);
       }}
     >

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Menu } from 'antd';
+import { Link } from 'react-router-dom';
 
 function LeftMenu(props) {
   return (
     <Menu mode={props.mode}>
     <Menu.Item danger key="favorite">
-      <a href="/favorite">보고싶어요</a>
+      <Link to="/favorite">보고싶어요</Link>
     </Menu.Item>
   </Menu>
   )

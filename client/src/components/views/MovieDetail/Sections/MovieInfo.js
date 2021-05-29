@@ -2,8 +2,6 @@ import React, { useState }  from 'react'
 import Favorite from './Favorite'
 import { Row } from 'antd'
 import GridCards from '../../commons/GridCards'
-import { API_IMAGE_URL} from '../../../Config'
-
 
 function MovieInfo(props) {
 
@@ -39,14 +37,13 @@ function MovieInfo(props) {
                 <br />
                 { /* Actors Grid Cards */ }
                 { ActorToggle &&
-                    <div style={{ overflowY: 'auto'}}>
+                    <div style={{ width: '100%'}}>
                         <Row gutter={[16, 16]}>
-                            { console.log(actors)}
                             { actors && actors.map((actor, index) => (
                                 <React.Fragment key={index}>
                                     <GridCards
                                         image={actor.profile_path ?
-                                            `${API_IMAGE_URL}w500${actor.profile_path}` : null}
+                                            `${process.env.REACT_APP_API_IMAGE_URL}w500${actor.profile_path}` : null}
                                         actorName={actor.name}
                                     />
                                 </React.Fragment>

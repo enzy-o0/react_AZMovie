@@ -51,13 +51,9 @@ router.post('/favorited/addFavorite', (req, res) => {
     favorite.save((err, doc) => {
         
         if (err) {
-            console.log(req.body, err)
             return res.status(400).send(err)
         }
         
-        console.log(doc)
-        console.log(favorite)
-
         return res.status(200).json({success: true, doc})
     })
 

@@ -77,7 +77,7 @@ a .mainImageMore .moreInfo{
 }
 
 a:hover .moreInfo{
-  bottom: 40%;
+  bottom: 20%;
 }
 
 .detailImage {
@@ -113,6 +113,7 @@ a:hover .moreInfo{
 
 
 .detailImage:hover .detailImageInfo{
+  width: 100%;
   bottom: 40%;
 }
 

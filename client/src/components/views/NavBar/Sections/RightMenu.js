@@ -1,33 +1,36 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Menu } from 'antd';
-import axios from 'axios';
-import { USER_SERVER } from '../../../Config';
-import { withRouter } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { withRouter, Link } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../../../../_actions/user_actions";
 
 function RightMenu(props) {
   const user = useSelector(state => state.user)
+  const dispatch = useDispatch();
 
-  const logoutHandler = () => {
-    axios.get(`${USER_SERVER}/logout`).then(response => {
-      if (response.status === 200) {
-        props.history.push("/login");
-        localStorage.removeItem('userId')
-      } else {
-        alert('Log Out Failed')
-      }
-    });
+  console.log('navbar');
+
+  const logoutHandler = async() => {
+
+    const resultLogout = await dispatch(logoutUser());
+
+    if (resultLogout.payload.success) {
+        window.location.replace("/"); // 로그아웃시 새로고침. 히스토리 기록되지 않음.
+        localStorage.removeItem('userId');
+    } else {
+        alert('로그아웃을 실패하였습니다.')
+    }
+
   };
 
   if (user.userData && !user.userData.isAuth) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="mail">
-          <a href="/login">로그인</a>
+          <Link to="/login">로그인</Link>
         </Menu.Item>
         <Menu.Item key="app">
-          <a href="/register">회원가입</a>
+          <Link to="/register">회원가입</Link>
         </Menu.Item>
       </Menu>
     )
@@ -35,7 +38,7 @@ function RightMenu(props) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="logout">
-          <a onClick={logoutHandler}>로그아웃</a>
+          <Link onClick={logoutHandler}>로그아웃</Link>
         </Menu.Item>
       </Menu>
     )
