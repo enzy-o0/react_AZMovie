@@ -1,7 +1,7 @@
 {
   "name": "react-boiler-plate",
   "version": "1.0.0",
-  "description": "react boiler plate",
+  "description": "az_movie",
   "main": "index.js",
   "engine": {
     "node": "12.22.1",
