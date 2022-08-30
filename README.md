@@ -3,8 +3,6 @@
 > TMDB OPEN API를 이용하여, 인기 순위 리스트, 각 영화별 참여 배우들 리스트,
 > 보고 싶어요 (좋아요) 기능 구현.
 
-[AZMovie 데모 링크](https://azmovie.herokuapp.com/)
-
 ## Skills
 
 - React.js
